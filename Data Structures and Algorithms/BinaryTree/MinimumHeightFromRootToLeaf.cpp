@@ -34,47 +34,38 @@ BinaryTreeNode<int> *takeInput()
     }
     return root;
 }
-void printVerticalOrder(BinaryTreeNode<int> *root)
+
+int Minheight(BinaryTreeNode<int>* root)
 {
-    if (!root)
-        return;
-    map<int, vector<int>> mp;
-    queue<pair<BinaryTreeNode<int> *, int>> q;
-    q.push(make_pair(root, 0));
-    while (!q.empty())
-    {
-        pair<BinaryTreeNode<int> *, int> k = q.front();
-        BinaryTreeNode<int> *front = k.first;
-        int temp = k.second;
+   if(!root)
+      return 0;
+   queue<BinaryTreeNode<int> *>q;
+   q.push(root);
+   int h=0;
+   while(!q.empty())
+   {
+     int n=q.size();
+     while(n!=0)
+     {
+        BinaryTreeNode<int> *front=q.front();
+        if(!front->left && !front->right)
+           return h;
         q.pop();
-        mp[temp].push_back(front->data);
-        if (front->left)
-        {
-            q.push(make_pair(front->left, k.second - 1));
-        }
-
-        if (front->right)
-        {
-            q.push(make_pair(front->right, k.second + 1));
-        }
-    }
-    
-    for (auto &itr : mp)
-    {
-        for (int i = 0; i < itr.second.size(); i++)
-        {
-            cout << itr.second.at(i) << " ";
-        }
-        cout << endl;
-    }
+        if(front->left)
+          q.push(front->left);
+        if(front->right)
+          q.push(front->right);
+        n=n-1;
+     }
+     h=h+1;
+   }
+   return h;
 }
-
-
 
 int main()
 {
-    BinaryTreeNode<int> *root = takeInput();
-    printVerticalOrder(root);
-    cout << endl;
-    return 0;
+   BinaryTreeNode<int> *root=takeInput();
+   int ans=Minheight(root);
+   cout<<ans<<endl;
+   return 0;
 }

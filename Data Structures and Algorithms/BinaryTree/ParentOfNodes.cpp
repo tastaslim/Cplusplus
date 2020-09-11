@@ -34,47 +34,37 @@ BinaryTreeNode<int> *takeInput()
     }
     return root;
 }
-void printVerticalOrder(BinaryTreeNode<int> *root)
+
+void PrintParent(BinaryTreeNode<int>* root, int x)
 {
-    if (!root)
-        return;
-    map<int, vector<int>> mp;
-    queue<pair<BinaryTreeNode<int> *, int>> q;
-    q.push(make_pair(root, 0));
-    while (!q.empty())
+  if(!root || x==root->data)
+    return;
+  unordered_map<int,BinaryTreeNode<int> *>mp;
+  queue<BinaryTreeNode<int> *>q;
+  q.push(root);
+  while(!q.empty())
+  {
+    BinaryTreeNode<int> *front=q.front();
+    q.pop();
+    if(front->left)
     {
-        pair<BinaryTreeNode<int> *, int> k = q.front();
-        BinaryTreeNode<int> *front = k.first;
-        int temp = k.second;
-        q.pop();
-        mp[temp].push_back(front->data);
-        if (front->left)
-        {
-            q.push(make_pair(front->left, k.second - 1));
-        }
-
-        if (front->right)
-        {
-            q.push(make_pair(front->right, k.second + 1));
-        }
+      q.push(front->left);
+      mp[front->left->data]=front;
     }
-    
-    for (auto &itr : mp)
+    if(front->right)
     {
-        for (int i = 0; i < itr.second.size(); i++)
-        {
-            cout << itr.second.at(i) << " ";
-        }
-        cout << endl;
+      q.push(front->right);
+      mp[front->right->data]=front;
     }
+  }
+  cout<<mp[x]->data<<endl;
 }
-
-
 
 int main()
 {
-    BinaryTreeNode<int> *root = takeInput();
-    printVerticalOrder(root);
-    cout << endl;
-    return 0;
+  BinaryTreeNode<int> *root=takeInput();
+  int x;
+  cin>>x;
+  PrintParent(root,x);
+  return 0;
 }
