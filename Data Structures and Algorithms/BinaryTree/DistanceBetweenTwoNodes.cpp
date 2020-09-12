@@ -29,7 +29,7 @@ Sample Output 3:
 -1
 */
 
-#include "../CommonTemplate.h"
+#include "CommonTemplate.h"
 BinaryTreeNode<int> *takeInput()
 {
     int rootData;
@@ -92,13 +92,8 @@ int lcaBinaryTree(BinaryTreeNode<int> *root, int val1, int val2)
     }
     return -1;
 }
-
 int main()
 {
-    BinaryTreeNode<int> *root = takeInput();
-    int val1, val2;
-    cin >> val1 >> val2;
-    int ans = lcaBinaryTree(root, val1, val2);
-    cout << ans << endl;
+    BinaryTreeNode<int>*root=takeInput();
     return 0;
 }

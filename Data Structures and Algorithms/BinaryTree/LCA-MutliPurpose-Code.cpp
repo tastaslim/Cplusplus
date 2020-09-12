@@ -4,7 +4,7 @@
 // You can find path to all leaves from root by doing minute modification.
 // you can find kth anscestor as well
 
-#include "../CommonTemplate.h"
+#include "CommonTemplate.h"
 BinaryTreeNode<int> *takeInput()
 {
     int rootData;
